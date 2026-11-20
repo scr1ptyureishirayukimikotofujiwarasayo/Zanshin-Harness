@@ -6,16 +6,20 @@ Zanshin Harness is a focused, local-first workspace for coding agents. The inter
 
 ## Current build
 
-This repository contains the responsive web workspace shell: cherry-blossom HUD styling, session navigation, Plan/Build mode controls, transcript cards, tool-call disclosure, context usage controls, text limiting, slash commands, and a command palette.
+This repository contains a standalone Electron desktop GUI with cherry-blossom HUD styling, session navigation, Plan/Build mode controls, transcript cards, tool-call disclosure, context usage controls, text limiting, slash commands, and a command palette.
 
 The local runtime and provider adapters described in the project brief are the next layer to connect to this shell.
 
 ## Quickstart
 
+Install dependencies once, then launch the native desktop GUI:
+
 ```bash
 npm install
-npm run dev
+npm run desktop
 ```
+
+For live development, use `npm run desktop:dev`. To create a Linux AppImage, run `npm run package`; the result is written to the `release` folder.
 
 Useful checks:
 
@@ -47,6 +51,8 @@ The visual language takes its cues from the included background art: lavender an
 
 | Path | Purpose |
 | --- | --- |
+| `electron/main.cjs` | Native window lifecycle and secure renderer loading. |
+| `electron/preload.cjs` | Minimal isolated desktop bridge. |
 | `src/App.tsx` | Workspace layout and interaction states. |
 | `src/index.css` | Theme, responsive layout, glass HUD styling, and motion. |
 | `public/aestheticharness.png` | Background art for the workspace. |
