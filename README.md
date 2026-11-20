@@ -6,9 +6,7 @@ Zanshin Harness is a focused, local-first workspace for coding agents. The inter
 
 ## Current build
 
-This repository contains a standalone Electron desktop GUI with cherry-blossom HUD styling, session navigation, Plan/Build mode controls, transcript cards, tool-call disclosure, context usage controls, text limiting, slash commands, and a command palette.
-
-The local runtime and provider adapters described in the project brief are the next layer to connect to this shell.
+Zanshin Harness runs as a standalone Electron desktop app and chats with a local Ollama instance. Sessions and preferences stay on the device. Plan and Build change how the model responds; neither mode reads or edits workspace files or runs commands. The folder picker saves a path for reference only.
 
 ## Quickstart
 
@@ -19,7 +17,9 @@ npm install
 npm run desktop
 ```
 
-For live development, use `npm run desktop:dev`. To create a Linux AppImage, run `npm run package`; the result is written to the `release` folder.
+For chat, install [Ollama](https://ollama.com/download), start it on `127.0.0.1:11434`, and pull a model, for example `ollama pull qwen2.5-coder:7b`. Enter the exact name shown by `ollama list` in Settings or via `/model`.
+
+For live development, use `npm run desktop:dev`. On Windows, `npm run package -- --win` builds a Windows installer under `release/`. On Linux, `npm run package` builds an AppImage.
 
 Useful checks:
 
@@ -33,15 +33,15 @@ npm run build
 
 | Command | What it does |
 | --- | --- |
-| `/ctxlimit 50k` | Set the context budget. |
-| `/ctxstatus` | Show current usage and offload stats. |
-| `/clearcontext` | Clear the active context window. |
-| `/textlimit 120` | Set a word limit for assistant text. |
+| `/ctxlimit 12k` | Set the estimated history budget (1,024–24,500 tokens). |
+| `/ctxstatus` | Show estimated history usage. |
+| `/clearcontext` | Reset model context without deleting the transcript. |
+| `/wordlimit 2` | Cap assistant replies at two words (`/textlimit` also works). |
 | `/textlimit on\|off\|toggle` | Toggle the text limiter. |
 | `/mode plan\|build` | Switch the active work mode. |
-| `/model` | Open the model picker. |
+| `/model` | Open model settings. |
 
-Keyboard shortcuts: `Ctrl/Cmd + K` opens the command palette, `Tab` switches modes, and `Ctrl + Alt + L` toggles the text limiter.
+Keyboard shortcuts: `Ctrl/Cmd + K` opens the command palette, `Alt + M` switches modes, and `Ctrl/Cmd + Alt + L` toggles the text limiter.
 
 ## Design direction
 
